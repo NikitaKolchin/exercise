@@ -2,7 +2,6 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip,
   ReferenceLine,
   Scatter,
   ScatterChart,

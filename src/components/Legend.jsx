@@ -1,7 +1,7 @@
 import CustomDot from "./CustomDot"
 const Legend = () => {
   return (
-    <div style={{display: "flex", width:"1200px", margin: "auto", marginBottom:"120px", justifyContent:"space-between"}}> 
+    <div style={{display: "flex", width:"800px", margin: "auto", marginBottom:"120px", justifyContent:"space-around"}}> 
       <div>
         <svg width={50}>
           {" "}
