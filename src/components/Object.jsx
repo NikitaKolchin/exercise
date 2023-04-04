@@ -26,14 +26,14 @@ const Object = (props) => {
   const dataFact = fillData(object.dataFact)
   return (
     <div style={{display: "flex"}}>
-    <h1>{object.name}</h1>
+    <div style={{width:"150px", margin:"15px"}}><h2>{object.name}</h2></div>
       <ScatterChart
-        width={1200}
-        height={800}
+        width={1066}
+        height={600}
         margin={{
           top: 5,
-          right: 30,
-          left: 20,
+          right: 10,
+          left: 10,
           bottom: 5,
         }}
       >

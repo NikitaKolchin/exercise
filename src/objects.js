@@ -37,13 +37,7 @@ const objects =
           },
           {
             name: "Монтаж 6",
-            date: new Date("2021-11-11T00:00:00.000Z"),
-            status: "blue",
-            lv: 3000,
-          },
-          {
-            name: "Монтаж 7",
-            date: new Date("2022-11-19T00:00:00.000Z"),
+            date: new Date("2022-06-11T00:00:00.000Z"),
             status: "blue",
             lv: 3000,
           },
@@ -81,13 +75,7 @@ const objects =
           },
           {
             name: "Монтаж 6",
-            date: new Date("2021-04-09T00:00:00.000Z"),
-            status: "gray",
-            lv: 1000,
-          },
-          {
-            name: "Монтаж 7",
-            date: new Date("2022-07-29T00:00:00.000Z"),
+            date: new Date("2022-02-09T00:00:00.000Z"),
             status: "gray",
             lv: 1000,
           },

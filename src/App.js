@@ -14,11 +14,15 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
 import { DatePicker } from "@mui/x-date-pickers/DatePicker"
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 
+import Box from "@mui/material/Box"
+import ListSubheader from "@mui/material/ListSubheader"
+import Grid from "@mui/material/Grid"
+
 import { Button } from "@mui/material"
 const objsCopy = structuredClone(objs)
 
 function App() {
-  const [checked, setChecked] = useState(objs.map(item => item.name))
+  const [checked, setChecked] = useState(objs.map((item) => item.name))
   const [objects, setObjects] = useState(objs)
   const [start, setStart] = useState(null)
   const [end, setEnd] = useState(null)
@@ -36,62 +40,102 @@ function App() {
   }
 
   const handleFilter = () => {
-   objects.forEach( obj => {
-      obj.dataPlan = obj.dataPlan.filter(item => 
-         (item.date > start)&&(item.date < end)
-       )
+    objects.forEach((obj) => {
+      obj.dataPlan = obj.dataPlan.filter(
+        (item) => item.date > start && item.date < end
+      )
     })
 
-    objects.forEach( obj => {
-      obj.dataFact = obj.dataFact.filter(fact => 
-        obj.dataPlan.find(plan => fact.name===plan.name)
-       )
+    objects.forEach((obj) => {
+      obj.dataFact = obj.dataFact.filter((fact) =>
+        obj.dataPlan.find((plan) => fact.name === plan.name)
+      )
     })
     setObjects([...objects])
-
   }
 
   const handleReset = () => {
     setObjects(structuredClone(objsCopy))
   }
   return (
-    <>
-      <List sx={{ width: "100%", maxWidth: 360 }}>
-        {objects.map((value) => {
-          return (
-            <ListItem key={value.name}>
-              <ListItemButton onClick={handleToggle(value.name)}>
-                <ListItemIcon>
-                  <Checkbox checked={checked.indexOf(value.name) !== -1}/>
-                </ListItemIcon>
-                <ListItemText primary={value.name} />
-              </ListItemButton>
-            </ListItem>
+    <Box sx={{ maxWidth: 1200, m: "auto" }}>
+      <Grid container spacing={4}>
+        <Grid item xs={6}>
+          <List
+            aria-labelledby="nested-list-subheader"
+            subheader={
+              <ListSubheader component="div" id="nested-list-subheader">
+                Выберите объекты
+              </ListSubheader>
+            }
+          >
+            {objects.map((value) => {
+              return (
+                <ListItem key={value.name}>
+                  <ListItemButton onClick={handleToggle(value.name)}>
+                    <ListItemIcon>
+                      <Checkbox checked={checked.indexOf(value.name) !== -1} />
+                    </ListItemIcon>
+                    <ListItemText primary={value.name} />
+                  </ListItemButton>
+                </ListItem>
+              )
+            })}
+          </List>
+        </Grid>
+        <Grid item xs={6} sx={{ marginTop: 7 }}>
+          <Grid container spacing={4}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Grid item xs={6}>
+                <DatePicker
+                  label="Дата начала"
+                  value={start}
+                  onChange={(newValue) => setStart(newValue)}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <DatePicker
+                  label="Дата окончания"
+                  value={end}
+                  onChange={(newValue) => setEnd(newValue)}
+                />
+              </Grid>
+            </LocalizationProvider>
+
+            <Grid item xs={6}>
+              {" "}
+              <Button variant="contained" sx={{height:55, width:275}} onClick={handleFilter}>
+                Отфильтровать по дате
+              </Button>
+            </Grid>
+            <Grid item xs={6}>
+              <Button
+                variant="outlined"
+                color="warning"
+                sx={{height:56, width:276}}
+                onClick={handleReset}
+              >
+                Сбросить фильтр
+              </Button>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sx={{ marginTop: 7, padding:2 }}>
+          <Legend />
+        </Grid>
+        {objects.map((object, index) =>
+          checked.includes(object.name) ? (
+            <Grid item xs={12}>
+              <Object key={index} object={object} />
+            </Grid>
+          ) : (
+            ""
           )
-        })}
-      </List>
-
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DatePicker
-          label="Дата начала"
-          value={start}
-          onChange={(newValue) => setStart(newValue)}
-        />
-        <DatePicker
-          label="Дата окончания"
-          value={end}
-          onChange={(newValue) => setEnd(newValue)}
-        />
-      </LocalizationProvider>
-
-      <Button onClick={handleFilter}>Отфильтровать по дате</Button>
-      <Button onClick={handleReset}>Сбросить фильтр</Button>
-      <Legend />
-
-      {objects.map((object, index) => (
-        checked.includes(object.name)?<Object key={index} object={object} />:""
-      ))}
-    </>
+        )}
+      </Grid>
+    </Box>
   )
 }
 

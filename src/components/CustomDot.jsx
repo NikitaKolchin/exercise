@@ -12,6 +12,7 @@ const CustomDot = (props) => {
           strokeWidth={3}
           fill={status}
         />
+        {/* <polygon points="10 0, 20 10, 10 20, 0 10" /> */}
         <text x={cx} y={cy + 50} stroke="black">
           {name}
         </text>
