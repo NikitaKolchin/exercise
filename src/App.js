@@ -18,21 +18,21 @@ import { Button } from "@mui/material"
 const objsCopy = structuredClone(objs)
 
 function App() {
- 
+  const [checked, setChecked] = useState(objs.map(item => item.name))
   const [objects, setObjects] = useState(objs)
   const [start, setStart] = useState(null)
   const [end, setEnd] = useState(null)
 
   const handleToggle = (value) => () => {
-    const currentIndex = objects.indexOf(value)
-    const newChecked = [...objects]
+    const currentIndex = checked.indexOf(value)
+    const newChecked = [...checked]
     if (currentIndex === -1) {
       newChecked.push(value)
     } else {
       newChecked.splice(currentIndex, 1)
     }
 
-    setObjects(newChecked)
+    setChecked(newChecked)
   }
 
   const handleFilter = () => {
@@ -52,17 +52,17 @@ function App() {
   }
 
   const handleReset = () => {
-    setObjects(objsCopy)
+    setObjects(structuredClone(objsCopy))
   }
   return (
     <>
       <List sx={{ width: "100%", maxWidth: 360 }}>
-        {objs.map((value) => {
+        {objects.map((value) => {
           return (
             <ListItem key={value.name}>
-              <ListItemButton onClick={handleToggle(value)} dense>
+              <ListItemButton onClick={handleToggle(value.name)}>
                 <ListItemIcon>
-                  <Checkbox checked={objects.indexOf(value) !== -1}/>
+                  <Checkbox checked={checked.indexOf(value.name) !== -1}/>
                 </ListItemIcon>
                 <ListItemText primary={value.name} />
               </ListItemButton>
@@ -89,7 +89,7 @@ function App() {
       <Legend />
 
       {objects.map((object, index) => (
-        <Object key={index} object={object} />
+        checked.includes(object.name)?<Object key={index} object={object} />:""
       ))}
     </>
   )
