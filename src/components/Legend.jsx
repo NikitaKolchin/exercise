@@ -1,32 +1,32 @@
 import CustomDot from "./CustomDot"
 const Legend = () => {
   return (
-    <div style={{display: "flex", maxWidth:"1200px", margin:"20px", justifyContent:"space-between", verticalAlign:"center"}}> 
-      <div>
-        <svg width={20} height={20}>
+    <div style={{display: "flex", maxWidth:"1200px", margin:"20px", justifyContent:"space-between"}}> 
+      <div style={{display: "flex", alignItems:"center"}}>
+        <svg width={30} height={30}>
           {" "}
-          <CustomDot cx={0} cy={0} status={"green"} />
+          <CustomDot cx={15} cy={15} status={"green"} />
         </svg>{" "}
-        <span>Пройденные вехи в срок </span>
+        <span> - Пройденные вехи в срок </span>
       </div>
-      <div>
-        <svg width={20} height={20}>
-          <CustomDot cx={0} cy={0} status={"red"} />{" "}
+      <div style={{display: "flex", alignItems:"center"}}>
+        <svg width={30} height={30}>
+          <CustomDot cx={15} cy={15} status={"red"} />{" "}
         </svg>{" "}
-        <span>Срыв</span>
+        <span> - Срыв</span>
       </div>
-      <div>
-        <svg width={20} height={20}>
-          <CustomDot cx={0} cy={0} status={"blue"} />
+      <div style={{display: "flex", alignItems:"center"}}>
+        <svg width={30} height={30}>
+          <CustomDot cx={15} cy={15} status={"blue"} />
         </svg>{" "}
-        <span>Дата, согласно контрактного графика</span>
+        <span> - Дата, согласно контрактного графика</span>
       </div>
-      <div>
-        <svg width={20} height={20}>
+      <div style={{display: "flex", alignItems:"center"}}>
+        <svg width={30} height={30}>
           {" "}
-          <CustomDot cx={0} cy={0} status={"grey"} />
+          <CustomDot cx={15} cy={15} status={"grey"} />
         </svg>{" "}
-        <span>Прогноз</span>
+        <span> - Прогноз</span>
       </div>
     </div>
   )

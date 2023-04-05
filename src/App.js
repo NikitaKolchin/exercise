@@ -24,6 +24,7 @@ const objsCopy = structuredClone(objs)
 function App() {
   const [checked, setChecked] = useState(objs.map((item) => item.name))
   const [objects, setObjects] = useState(objs)
+  const [filtred, setFiltred] = useState(false)
   const [start, setStart] = useState(null)
   const [end, setEnd] = useState(null)
 
@@ -52,10 +53,12 @@ function App() {
       )
     })
     setObjects([...objects])
+    setFiltred(true)
   }
 
   const handleReset = () => {
     setObjects(structuredClone(objsCopy))
+    setFiltred(false)
   }
   return (
     <Box sx={{ maxWidth: 1200, m: "auto" }}>
@@ -88,6 +91,7 @@ function App() {
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <Grid item xs={6}>
                 <DatePicker
+                  disabled={filtred}
                   label="Дата начала"
                   value={start}
                   onChange={(newValue) => setStart(newValue)}
@@ -95,6 +99,7 @@ function App() {
               </Grid>
               <Grid item xs={6}>
                 <DatePicker
+                  disabled={filtred}
                   label="Дата окончания"
                   value={end}
                   onChange={(newValue) => setEnd(newValue)}
@@ -104,7 +109,7 @@ function App() {
 
             <Grid item xs={6}>
               {" "}
-              <Button variant="contained" sx={{height:55, width:275}} onClick={handleFilter}>
+              <Button variant="contained" sx={{height:55, width:275}}  disabled={filtred} onClick={handleFilter}>
                 Отфильтровать по дате
               </Button>
             </Grid>
