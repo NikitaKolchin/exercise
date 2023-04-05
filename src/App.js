@@ -156,7 +156,7 @@ function App() {
           filename="example.pdf"
           options={{ orientation: "landscape" }}
         >
-          {({ toPdf }) => <Button onClick={toPdf}>Скачать Pdf</Button>}
+          {({ toPdf }) => <Button onClick={toPdf} disabled={checked.length!==1}>Скачать Pdf</Button>}
         </Pdf>
       </Grid>
     </Box>
