@@ -1,8 +1,10 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 import Legend from "./components/Legend"
 import "./App.css"
 import Object from "./components/Object"
 import objs from "./objects"
+
+import Pdf from "react-to-pdf"
 
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
@@ -27,6 +29,7 @@ function App() {
   const [filtred, setFiltred] = useState(false)
   const [start, setStart] = useState(null)
   const [end, setEnd] = useState(null)
+  const pdfRef = useRef(null)
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value)
@@ -61,7 +64,7 @@ function App() {
     setFiltred(false)
   }
   return (
-    <Box sx={{ maxWidth: 1200, m: "auto" }}>
+    <Box sx={{ maxWidth: 1000, m: "auto" }}>
       <Grid container spacing={4}>
         <Grid item xs={6}>
           <List
@@ -109,7 +112,12 @@ function App() {
 
             <Grid item xs={6}>
               {" "}
-              <Button variant="contained" sx={{height:55, width:275}}  disabled={filtred} onClick={handleFilter}>
+              <Button
+                variant="contained"
+                sx={{ height: 55, width: 225 }}
+                disabled={filtred}
+                onClick={handleFilter}
+              >
                 Отфильтровать по дате
               </Button>
             </Grid>
@@ -117,7 +125,7 @@ function App() {
               <Button
                 variant="outlined"
                 color="warning"
-                sx={{height:56, width:276}}
+                sx={{ height: 56, width: 226 }}
                 onClick={handleReset}
               >
                 Сбросить фильтр
@@ -126,19 +134,30 @@ function App() {
           </Grid>
         </Grid>
       </Grid>
-      <Grid container spacing={2}>
-        <Grid item xs={12} sx={{ marginTop: 7, padding:2 }}>
+      <Grid container spacing={2} >
+        <Grid item xs={12} sx={{ marginTop: 7, padding: 2 }}>
           <Legend />
         </Grid>
-        {objects.map((object, index) =>
-          checked.includes(object.name) ? (
-            <Grid item xs={12}>
-              <Object key={index} object={object} />
-            </Grid>
-          ) : (
-            ""
-          )
-        )}
+        <Grid item xs={12} ref={pdfRef}>
+          {objects.map((object, index) =>
+            checked.includes(object.name) ? (
+              <Grid item xs={12}>
+                <Object key={index} object={object} />
+              </Grid>
+            ) : (
+              ""
+            )
+          )}
+        </Grid>
+      </Grid>
+      <Grid item xs={12} sx={{ marginTop: 7, padding: 2 }}>
+        <Pdf
+          targetRef={pdfRef}
+          filename="example.pdf"
+          options={{ orientation: "landscape" }}
+        >
+          {({ toPdf }) => <Button onClick={toPdf}>Скачать Pdf</Button>}
+        </Pdf>
       </Grid>
     </Box>
   )

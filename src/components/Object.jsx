@@ -28,7 +28,7 @@ const Object = (props) => {
     <div style={{display: "flex"}}>
     <div style={{width:"150px", margin:"15px"}}><h2>{object.name}</h2></div>
       <ScatterChart
-        width={1066}
+        width={866}
         height={600}
         margin={{
           top: 5,

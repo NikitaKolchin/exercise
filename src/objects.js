@@ -69,7 +69,7 @@ const objects =
           },
           {
             name: "Монтаж 5",
-            date: new Date("2020-01-05T00:00:00.000Z"),
+            date: new Date("2020-06-05T00:00:00.000Z"),
             status: "gray",
             lv: 1000,
           },
